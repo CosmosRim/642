@@ -1,8 +1,9 @@
+from datetime import datetime
 class Payment:
-    def __init__(self, customer, Amout,Date):
+    def __init__(self, customer, Amount,Date):
         self.__customer = customer
-        self.__paymentAmout = Amout
-        self.__paymentDate = Date
+        self.__paymentAmount = Amount
+        self.__paymentDate = datetime.now()
         
     @property
     def customer(self):
@@ -13,12 +14,12 @@ class Payment:
         self.__customer = customer
     
     @property
-    def paymentAmout(self):
-        return self.__paymentAmout
+    def paymentAmount(self):
+        return self.__paymentAmount
     
-    @paymentAmout.setter
-    def paymentAmout(self, paymentAmout):
-        self.__paymentAmout = paymentAmout
+    @paymentAmount.setter
+    def paymentAmount(self, paymentAmount):
+        self.__paymentAmount = paymentAmount
         
     @property
     def paymentDate(self):
@@ -29,5 +30,5 @@ class Payment:
         self.__paymentDate = paymentDate
     
     def display_payment(self):
-        print(self.customer, self.paymentAmout, self.paymentDate)
+        print(self.customer, self.paymentAmount, self.paymentDate)
         

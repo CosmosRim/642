@@ -18,6 +18,9 @@ class OrderItem:
     @quantity.setter
     def quantity(self, quantity):
         self.__quantity = quantity
+    
+    def add_order_item(self, order_item):
+        self.items.append(order_item)
         
     def total_price(self):
         return self.__order * self.__quantity

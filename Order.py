@@ -37,6 +37,11 @@ class Order:
         
     def display_order(self):
         print(self.customer, self.nextID, self.orderdate, self.orderID)
+    
+    def finalize_order(self):
+        total_cost = self.calculate_total()
+        self.customer.balance += total_cost
+        return total_cost
         
     def __str__(self):
         return f"{self.customer}, {self.nextID}, {self.orderdate}, {self.orderID}"

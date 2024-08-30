@@ -1,3 +1,6 @@
+from Order import Order
+from Customer import Customer
+
 class Controller:
     
     def __init__(self):
@@ -48,7 +51,7 @@ class Controller:
     def add_order(self, customer_name,order):
         customer = self.__find_customer(customer_name)
         if customer is not None:
-            self.__customer.add_order(order)
+            self.__customer.append(customer_name)
             self.__orders.append(order)
             return True
         return False
@@ -67,6 +70,7 @@ class Controller:
             self.__payments.append(payment)
             return True
         return False
+    
 # Find a customer object based on customer’s name.
     def find_customer(self, customer_name):
         for customer in self.__customers:

@@ -39,6 +39,15 @@ class Customer():
     @nextID.setter
     def nextID(self, value):
         self.__nextID = value
+    
+    def add_order(self, order):
+        self.orders.append(order)
+    
+    def add_payment(self, payment):
+        self.payments.append(payment)
+
+    def update_balance(self, amount):
+        self.balance += amount
         
     def display_customer(self):
         print(self.customerBalance, self.customerID, self.customerName, self.nextID)
