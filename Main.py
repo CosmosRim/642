@@ -42,18 +42,18 @@ def main():
         order.complete_order()
 
     # Accept payments from customers.
-        def add_payment(self, customer_name, Amount):
-            customer = self.find_customer_by_name(customer_name)
-        if Customer:
-            payment = Payment(Customer, Amount)
+    def add_payment(self, customer_name, Amount):
+        customer = self.find_customer_by_name(customer_name)
+        if customer:
+            payment = Payment(customer, Amount)
             self._payments.append(payment)
-            Customer.update_balance(- Amount)  # Subtract payment from balance
+            customer.update_balance(- Amount)  # Subtract payment from balance
         else:
             raise ValueError("Customer not found.")
 
     # List all orders for a given customer.
-        def get_orders_for_customer(self, customer_name):
-            customer = self.find_customer_by_name(customer_name)
+    def get_orders_for_customer(self, customer_name):
+        customer = self.find_customer_by_name(customer_name)
         if customer:
             if customer.orders:
                 orders_list = []
@@ -141,8 +141,8 @@ def main():
             return "Order not found."
         
     # Make a payment for a selected customer. Customer’s balance must be updated to reflect this payment.
-        def add_payment(self, customer_name, amount):
-            customer = self.find_customer_by_name(customer_name)
+    def add_payment(self, customer_name, amount):
+        customer = self.find_customer_by_name(customer_name)
         if customer and amount > 0:
             payment = Payment(amount, customer)
             customer.add_payment(payment)
@@ -152,32 +152,32 @@ def main():
             raise ValueError("Invalid customer or amount")
 
     # Display the list of orders for a selected customer.
-        def get_orders_for_customer(self, customer_name):
-            customer = self.find_customer_by_name(customer_name)
+    def get_orders_for_customer(self, customer_name):
+        customer = self.find_customer_by_name(customer_name)
         if customer:
             return customer.orders
         else:
             raise ValueError("Customer not found")
 
     # Display the list of payments for a selected customer.
-        def get_payments_for_customer(self, customer_name):
-            customer = self.find_customer_by_name(customer_name)
+    def get_payments_for_customer(self, customer_name):
+        customer = self.find_customer_by_name(customer_name)
         if customer:
             return customer.payments
         else:
             raise ValueError("Customer not found")
 
     # Display the list of all customers for the company.
-        def get_all_customers(self):
-            return self.customers
+    def get_all_customers(self):
+        return self.customers
 
     # Display the list of all the orders for the company.
-        def get_all_orders(self):
-            return self._orders
+    def get_all_orders(self):
+        return self._orders
     
     # Display the list of all payments for the company.
-        def get_all_payments(self):
-            return self._payments
+    def get_all_payments(self):
+        return self._payments
 
     # Have a user interface with the appropriate user controls, useful feedback, and prevention of input errors.TKinter使用的
 
