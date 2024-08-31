@@ -1,19 +1,14 @@
 from Product import Product
 class OrderItem:
     __nextID = 0
-    __orderItemID = 100000
     
     def __init__(self, orderID, quantity, productName):
-        self.__orderItemID += OrderItem.__nextID
-        OrderItem.__nextID += 1
         self.__orderID = orderID
+        self.__orderItemID = orderID * 100 + OrderItem.__nextID
+        OrderItem.__nextID += 1
         self.__quantity = quantity
         self.__productName = productName
         
-    @property
-    def order_item_id(self):
-        return self.__orderItemID
-
     @property
     def order_id(self):
         return self.__orderID
@@ -22,6 +17,10 @@ class OrderItem:
     def order_id(self, orderID):
         self.__orderID = orderID
     
+    @property
+    def order_item_id(self):
+        return self.__orderItemID
+
     @property
     def quantity(self):
         return self.__quantity
@@ -37,10 +36,6 @@ class OrderItem:
     @quantity.setter
     def product_name(self, productName):
         self.__productName = productName
-    
-    # productPrice = Product.get_price(product_name)
-    # def total_price(self):
-    #     return self.productPrice * self.quantity
     
 	# set default return value of current class
     def __str__(self) -> str:

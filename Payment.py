@@ -1,10 +1,10 @@
 from datetime import datetime
 class Payment:
-    def __init__(self, customer, amount, date):
+    def __init__(self, customer, amount):
         self.__customer = customer
         self.__paymentAmount = amount
-        self.__paymentDate = date
-        self.__currentDate = datetime.now()
+		# Payments and orders should be automatically assigned the current date when the objects are created.
+        self.__paymentDate = datetime.now()
         
     @property
     def customer(self):
@@ -25,14 +25,6 @@ class Payment:
     @property
     def payment_date(self):
         return self.__paymentDate
-    
-    @payment_date.setter
-    def paymentDate(self, paymentDate):
-        self.__paymentDate = paymentDate
-    
-    @property
-    def current_date(self):
-        return self.__currentDate
 
     def display_payment(self):
         print(self.customer, self.paymentAmount, self.paymentDate)

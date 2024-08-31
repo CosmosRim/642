@@ -1,12 +1,13 @@
 from datetime import datetime
+from Customer import Customer
 
 class Order:
     __nextID = 0
 	# start the first customer with ID 1000 and the first order with ID 10000
     __orderID = 10000
     
-    def __init__(self, customer):
-        self.__customer = customer
+    def __init__(self, Customer):
+        self.__customer = Customer
 		# Payments and orders should be automatically assigned the current date when the objects are created.
         self.__orderdate = datetime.now()
         self.__orderID += Order.__nextID
