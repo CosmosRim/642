@@ -5,12 +5,13 @@ class Order:
     __nextID = 0
     __orderID = 10000
     
-    def __init__(self, customer,orderdate):
+    def __init__(self, customer, orderdate):
         self.__customer = customer
         self.__orderdate = orderdate
-        self.__orderID = Order.__nextID
-        self.__order_date = datetime.now()
+        self.__orderID += Order.__nextID
         Order.__nextID += 1
+        self.__currentdate = datetime.now()
+	
     @property
     def customer(self):
         return self.__customer
@@ -34,6 +35,10 @@ class Order:
     @nextID.setter
     def nextID(self, value):
         self.__nextID = value
+	
+    @property
+    def currentdate(self):
+        return self.__currentdate
         
     def display_order(self):
         print(self.customer, self.nextID, self.orderdate, self.orderID)
@@ -43,6 +48,6 @@ class Order:
         self.customer.balance += total_cost
         return total_cost
         
-    def __str__(self):
+    def __str__(self) -> str:
         return f"{self.customer}, {self.nextID}, {self.orderdate}, {self.orderID}"
         

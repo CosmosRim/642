@@ -4,7 +4,7 @@ class Customer():
     
     def __init__(self, balance, name):
         self.__customerBalance = balance
-        self.__customerID = Customer.__nextID
+        self.__customerID += Customer.__nextID
         Customer.__nextID += 1
         self.customerName = name
     
@@ -52,5 +52,6 @@ class Customer():
     def display_customer(self):
         print(self.customerBalance, self.customerID, self.customerName, self.nextID)
         
+	# set default value of current class
     def __str__(self):
         return f"{self.customerBalance}, {self.customerID}, {self.customerName}, {self.nextID}"
