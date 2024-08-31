@@ -15,28 +15,29 @@ class Payment:
         self.__customer = customer
     
     @property
-    def paymentAmount(self):
+    def payment_amount(self):
         return self.__paymentAmount
     
-    @paymentAmount.setter
-    def paymentAmount(self, paymentAmount):
+    @payment_amount.setter
+    def payment_amount(self, paymentAmount):
         self.__paymentAmount = paymentAmount
         
     @property
-    def paymentDate(self):
+    def payment_date(self):
         return self.__paymentDate
     
-    @paymentDate.setter
+    @payment_date.setter
     def paymentDate(self, paymentDate):
         self.__paymentDate = paymentDate
     
     @property
-    def currentDate(self):
+    def current_date(self):
         return self.__currentDate
 
     def display_payment(self):
         print(self.customer, self.paymentAmount, self.paymentDate)
 	
+	# set default return value of current class
     def __str__(self) -> str:
-        return f"{self.customer}, {self.paymentAmount}, {self.paymentDate}"
+        return f"{self.customer}, {self.payment_amount}, {self.payment_date}"
         

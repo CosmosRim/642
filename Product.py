@@ -1,7 +1,10 @@
 class Product:
+    # __product_dict = {}
+    
     def __init__(self, name, price):
         self.__name = name
         self.__price = price
+        # Product.__product_dict[name] = self
     
     @property
     def name(self):
@@ -19,5 +22,11 @@ class Product:
     def price(self, price):
         self.__price = price
         
-    def __str__(self):
-        return f"{self.__name}, ${self.__price}"
+    # @classmethod
+    # def get_price(cls, name):
+    #     product = cls.__product_dict.get(name)
+    #     return product.price
+    
+	# set default return value of current class    
+    def __str__(self) -> str:
+        return f"{self.name}, ${self.price}"

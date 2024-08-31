@@ -1,3 +1,4 @@
+from Product import Product
 class OrderItem:
     __nextID = 0
     __orderItemID = 100000
@@ -37,11 +38,10 @@ class OrderItem:
     def product_name(self, productName):
         self.__productName = productName
     
-    # def add_order_item(self, order_item):
-    #     self.items.append(order_item)
-        
-    def total_price(self):
-        return self.__orderID * self.__quantity
+    # productPrice = Product.get_price(product_name)
+    # def total_price(self):
+    #     return self.productPrice * self.quantity
     
+	# set default return value of current class
     def __str__(self) -> str:
-        return f"{self.__orderID} * {self.__quantity} = {self.__total_Price}"
+        return f"{self.order_id}, {self.quantity}, {self.product_name}"

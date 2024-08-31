@@ -1,16 +1,16 @@
 from datetime import datetime
-from Customer import Customer
 
 class Order:
     __nextID = 0
+	# start the first customer with ID 1000 and the first order with ID 10000
     __orderID = 10000
     
-    def __init__(self, customer, orderdate):
+    def __init__(self, customer):
         self.__customer = customer
-        self.__orderdate = orderdate
+		# Payments and orders should be automatically assigned the current date when the objects are created.
+        self.__orderdate = datetime.now()
         self.__orderID += Order.__nextID
         Order.__nextID += 1
-        self.__currentdate = datetime.now()
 	
     @property
     def customer(self):
@@ -24,30 +24,18 @@ class Order:
     def orderdate(self):
         return self.__orderdate
 
-    @orderdate.setter
-    def orderdate(self, orderdate):
-        self.__orderdate = orderdate
+    @property
+    def order_id(self):
+        return self.__orderID
 
     @property
     def nextID(self):
-        return self.__nextID
-
-    @nextID.setter
-    def nextID(self, value):
-        self.__nextID = value
-	
-    @property
-    def currentdate(self):
-        return self.__currentdate
+        return self.__orderID + self.__nextID
         
     def display_order(self):
         print(self.customer, self.nextID, self.orderdate, self.orderID)
-    
-    def finalize_order(self):
-        total_cost = self.calculate_total()
-        self.customer.balance += total_cost
-        return total_cost
         
+	# set default return value of current class
     def __str__(self) -> str:
         return f"{self.customer}, {self.nextID}, {self.orderdate}, {self.orderID}"
         

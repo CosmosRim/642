@@ -1,5 +1,6 @@
 class Customer():
     __nextID = 0
+	# start the first customer with ID 1000 and the first order with ID 10000
     __customerID = 1000
     
     def __init__(self, balance, name):
@@ -31,27 +32,23 @@ class Customer():
     @customerName.setter
     def customerName(self, customerName):
         self.__customerName = customerName
-
+    
     @property
     def nextID(self):
-        return self.__nextID
+        return self.__customerID + self.__nextID
 
-    @nextID.setter
-    def nextID(self, value):
-        self.__nextID = value
+    # def add_order(self, order):
+    #     self.orders.append(order)
     
-    def add_order(self, order):
-        self.orders.append(order)
-    
-    def add_payment(self, payment):
-        self.payments.append(payment)
+    # def add_payment(self, payment):
+    #     self.payments.append(payment)
 
-    def update_balance(self, amount):
-        self.balance += amount
+    def add_balance(self, amount):
+        self.__customerBalance += amount
         
     def display_customer(self):
         print(self.customerBalance, self.customerID, self.customerName, self.nextID)
         
-	# set default value of current class
-    def __str__(self):
+	# set default return value of current class
+    def __str__(self) -> str:
         return f"{self.customerBalance}, {self.customerID}, {self.customerName}, {self.nextID}"
