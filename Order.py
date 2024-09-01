@@ -11,6 +11,7 @@ class Order:
         self.__orderDate = datetime.now()
         self.__orderID += Order.__nextID
         Order.__nextID += 1
+        self.__status = "open"
 	
     @property
     def customer_name(self):
@@ -31,7 +32,15 @@ class Order:
     @property
     def next_id(self):
         return self.__orderID + self.__nextID
-        
+    
+    @property
+    def status(self):
+        return self.__status
+	
+    @status.setter
+    def status(self, status):
+        self.__status = status
+
     def display_order(self):
         print(self.customer_name, self.next_id, self.order_date, self.order_id)
         

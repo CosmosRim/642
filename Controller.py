@@ -13,6 +13,46 @@ class Controller:
         self.__orderItems = []
         self.__products = {}
         self.__payments = []
+	
+    @property
+    def customers(self):
+         return self.__customers
+
+    @customers.setter
+    def customers(self, customers):
+        self.__customers = customers
+
+    @property
+    def orders(self):
+        return self.__orders
+
+    @orders.setter
+    def orders(self, orders):
+        self.__orders = orders
+
+    @property
+    def order_items(self):
+        return self.__orders
+
+    @order_items.setter
+    def order_items(self, orders):
+        self.__orders = orders
+
+    @property
+    def products(self):
+        return self.__products
+
+    @products.setter
+    def products(self, products):
+        self.__products = products
+
+    @property
+    def payments(self):
+        return self.__payments
+
+    @payments.setter
+    def payments(self, payments):
+        self.__payments = payments
 
     # Create and maintain customers, orders, products and payments. 
     def add_customer(self, customer):
@@ -38,10 +78,11 @@ class Controller:
         return False
     
     # Add a payment for a given customer. 
-    def add_payment(self, payment):
-        customer = self.find_customer(payment.customer_name)
+    def add_payment(self, customer, payment):
+        customer = self.find_customer(customer.customer_name)
         if customer is not None:
             self.__payments.append(payment)
+            self.update_customer_balance(customer, payment.payment_amount)
             return True
         return False
     
@@ -83,12 +124,16 @@ class Controller:
     
     # update customer balance
     def update_customer_balance(self, customer, amount):
-        return customer.balance + amount
+        return customer.customer_balance + amount
     
     # commit order
     def commit_order(self, customer, order):
-        amount = 1
-        self.update_customer_balance(customer, amount)
+        amount = 0
+        for orderItem in self.__orderItems:
+            if orderItem.order_id == order.order_id:
+                amount += orderItem.quantity * orderItem.product_price
+        # order.status("closed")
+        self.update_customer_balance(customer, -amount)
 
 # create a instance for all info
 controller = Controller()
@@ -111,12 +156,15 @@ order = Order("Ignacia Craft")
 controller.add_order(order)
 
 # c. Add products and quantities (as order items) to the order
-orderItem = OrderItem(order, 1, "Post-it Notes")
+orderItem = OrderItem(order, 2, controller.products["Post-it Notes"])
 controller.add_order_item(orderItem)
 
 # d. Completed order must be submitted and the customer’s balance must be updated.
+controller.commit_order(controller.customers["Ignacia Craft"], order)
 
 # e. Make a payment for a selected customer. Customer’s balance must be updated to reflect this payment.
+payment = Payment("Ignacia Craft", 123)
+controller.add_payment(controller.customers["Ignacia Craft"], payment)
 
 # f. Display the list of orders for a selected customer.
 for order in controller.list_orders_for_customer("Ignacia Craft"):

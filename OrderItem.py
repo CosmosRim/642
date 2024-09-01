@@ -1,13 +1,13 @@
-from Product import Product
 class OrderItem:
     __nextID = 0
     
-    def __init__(self, order, quantity, productName):
+    def __init__(self, order, quantity, product):
         self.__orderID = order.order_id
         self.__orderItemID = order.order_id * 100 + OrderItem.__nextID
         OrderItem.__nextID += 1
         self.__quantity = quantity
-        self.__productName = productName
+        self.__productName = product.name
+        self.__productPrice = product.price
         
     @property
     def order_id(self):
@@ -33,9 +33,9 @@ class OrderItem:
     def product_name(self):
         return self.__productName
         
-    @quantity.setter
-    def product_name(self, productName):
-        self.__productName = productName
+    @property
+    def product_price(self):
+        return self.__productPrice
     
 	# set default return value of current class
     def __str__(self) -> str:
