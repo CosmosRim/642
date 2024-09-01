@@ -7,7 +7,7 @@ class Customer():
         self.__customerBalance = balance
         self.__customerID += Customer.__nextID
         Customer.__nextID += 1
-        self.customerName = name
+        self.__customerName = name
     
     @property
     def customer_balance(self):
@@ -30,12 +30,12 @@ class Customer():
         self.__customerName = customerName
     
     @property
-    def nextID(self):
+    def next_id(self):
         return self.__customerID + self.__nextID
         
     def display_customer(self):
-        print(self.customerBalance, self.customerID, self.customerName, self.nextID)
+        print(self.customer_balance, self.customer_id, self.customer_name, self.next_id)
         
 	# set default return value of current class
     def __str__(self) -> str:
-        return f"{self.customerBalance}, {self.customerID}, {self.customerName}, {self.nextID}"
+        return f"{self.customer_balance}, {self.customer_id}, {self.customer_name}, {self.next_id}"

@@ -2,9 +2,9 @@ from Product import Product
 class OrderItem:
     __nextID = 0
     
-    def __init__(self, orderID, quantity, productName):
-        self.__orderID = orderID
-        self.__orderItemID = orderID * 100 + OrderItem.__nextID
+    def __init__(self, order, quantity, productName):
+        self.__orderID = order.order_id
+        self.__orderItemID = order.order_id * 100 + OrderItem.__nextID
         OrderItem.__nextID += 1
         self.__quantity = quantity
         self.__productName = productName
