@@ -124,7 +124,7 @@ class Controller:
     
     # update customer balance
     def update_customer_balance(self, customer, amount):
-        return customer.customer_balance + amount
+        return customer.adjust_balance(amount)
     
     # commit order
     def commit_order(self, customer, order):
@@ -132,58 +132,69 @@ class Controller:
         for orderItem in self.__orderItems:
             if orderItem.order_id == order.order_id:
                 amount += orderItem.quantity * orderItem.product_price
-        # order.status("closed")
+        order.status = "commited"
+        order.amount = amount
         self.update_customer_balance(customer, -amount)
 
-# create a instance for all info
-controller = Controller()
 
-# a. Read the supplied files and create the appropriate customer and product objects.
-with open("customer.txt", "r") as file:
-    for line in file:
-        name = line.strip()
-        customer = Customer(0, name)
-        controller.add_customer(customer) 
+def main():
+    # create a instance for all info
+    controller = Controller()
+    
+    # a. Read the supplied files and create the appropriate customer and product objects.
+    with open("customer.txt", "r") as file:
+        for line in file:
+            name = line.strip()
+            customer = Customer(0, name)
+            controller.add_customer(customer) 
+    
+    with open("product.txt", "r") as file:
+        for line in file:
+            name, price = line.strip().split(",")
+            product = Product(name, float(price))
+            controller.add_product(product)
+    
+    # b. Create a new order for a selected customer.
+    order = Order("Ignacia Craft")
+    controller.add_order(order)
+    
+    # c. Add products and quantities (as order items) to the order
+    orderItem = OrderItem(order, 2, controller.products["Post-it Notes"])
+    controller.add_order_item(orderItem)
+    
+    # d. Completed order must be submitted and the customer’s balance must be updated.
+    controller.commit_order(controller.customers["Ignacia Craft"], order)
+    
+    # e. Make a payment for a selected customer. Customer’s balance must be updated to reflect this payment.
+    payment = Payment("Ignacia Craft", 123)
+    controller.add_payment(controller.customers["Ignacia Craft"], payment)
+    
+    print("Orders for Ignacia")
+    # f. Display the list of orders for a selected customer.
+    for order in controller.list_orders_for_customer("Ignacia Craft"):
+        print(order)
+    
+    print("Payments for Ignacia")
+    # g. Display the list of payments for a selected customer.
+    for payment in controller.list_payments_for_customer("Ignacia Craft"):
+        print(payment)
+    
+    print("All customer")
+    # h. Display the list of all customers for the company.
+    for customer in controller.list_all_customers():
+        print(customer)
+    
+    print("All order")
+    # i. Display the list of all the orders for the company.
+    for order in controller.list_all_orders():
+        print(order)
+    
+    print("All payment")
+    # j. Display the list of all payments for the company.
+    for payment in controller.list_all_payments():
+        print(payment)
+    
+    # k. Have a user interface with the appropriate user controls, useful feedback, and prevention of input errors.
 
-with open("product.txt", "r") as file:
-    for line in file:
-        name, price = line.strip().split(",")
-        product = Product(name, float(price))
-        controller.add_product(product)
-
-# b. Create a new order for a selected customer.
-order = Order("Ignacia Craft")
-controller.add_order(order)
-
-# c. Add products and quantities (as order items) to the order
-orderItem = OrderItem(order, 2, controller.products["Post-it Notes"])
-controller.add_order_item(orderItem)
-
-# d. Completed order must be submitted and the customer’s balance must be updated.
-controller.commit_order(controller.customers["Ignacia Craft"], order)
-
-# e. Make a payment for a selected customer. Customer’s balance must be updated to reflect this payment.
-payment = Payment("Ignacia Craft", 123)
-controller.add_payment(controller.customers["Ignacia Craft"], payment)
-
-# f. Display the list of orders for a selected customer.
-for order in controller.list_orders_for_customer("Ignacia Craft"):
-    print(order)
-
-# g. Display the list of payments for a selected customer.
-for payment in controller.list_payments_for_customer("Ignacia Craft"):
-    print(payment)
-
-# h. Display the list of all customers for the company.
-for customer in controller.list_all_customers():
-    print(customer)
-
-# i. Display the list of all the orders for the company.
-for order in controller.list_all_orders():
-    print(order)
-
-# j. Display the list of all payments for the company.
-for payment in controller.list_all_payments():
-    print(payment)
-
-# k. Have a user interface with the appropriate user controls, useful feedback, and prevention of input errors.
+if __name__ == "__main__":
+    main()

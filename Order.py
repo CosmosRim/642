@@ -11,7 +11,8 @@ class Order:
         self.__orderDate = datetime.now()
         self.__orderID += Order.__nextID
         Order.__nextID += 1
-        self.__status = "open"
+        self.__status = "uncommit"
+        self.__amount = 0
 	
     @property
     def customer_name(self):
@@ -41,10 +42,18 @@ class Order:
     def status(self, status):
         self.__status = status
 
+    @property
+    def amount(self):
+        return self.__amount
+    
+    @amount.setter
+    def amount(self, amount):
+        self.__amount = amount
+
     def display_order(self):
-        print(self.customer_name, self.next_id, self.order_date, self.order_id)
+        print(self.customer_name, self.order_id, self.next_id, self.order_date, self.status, self.amount)
         
 	# set default return value of current class
     def __str__(self) -> str:
-        return f"{self.customer_name}, {self.next_id}, {self.order_date}, {self.order_id}"
+        return f"{self.customer_name}, {self.order_id}, {self.next_id}, {self.order_date}, {self.status}, {self.amount}"
         

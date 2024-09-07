@@ -1,12 +1,13 @@
 class Customer():
-    __nextID = 0
+    __counter = 0
 	# start the first customer with ID 1000 and the first order with ID 10000
-    __customerID = 1000
+    __customerBaseID = 1000
     
     def __init__(self, balance, name):
         self.__customerBalance = balance
-        self.__customerID += Customer.__nextID
-        Customer.__nextID += 1
+        self.__customerID = Customer.__customerBaseID + Customer.__counter
+        Customer.__counter += 1
+        self.__nextCustomerID = Customer.__customerBaseID + Customer.__counter
         self.__customerName = name
     
     @property
@@ -30,12 +31,15 @@ class Customer():
         self.__customerName = customerName
     
     @property
-    def next_id(self):
-        return self.__customerID + self.__nextID
+    def next_customer_id(self):
+        return self.__nextCustomerID
+    
+    def adjust_balance(self, adjust):
+        self.__customerBalance += adjust
         
     def display_customer(self):
-        print(self.customer_balance, self.customer_id, self.customer_name, self.next_id)
+        print(self.customer_balance, self.customer_id, self.customer_name, self.next_customer_id)
         
 	# set default return value of current class
     def __str__(self) -> str:
-        return f"{self.customer_balance}, {self.customer_id}, {self.customer_name}, {self.next_id}"
+        return f"{self.customer_balance}, {self.customer_id}, {self.customer_name}, {self.next_customer_id}"
