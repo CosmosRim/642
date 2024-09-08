@@ -4,7 +4,7 @@ class Payment:
         self.__customerName = customerName
         self.__paymentAmount = amount
 		# Payments and orders should be automatically assigned the current date when the objects are created.
-        self.__paymentDate = datetime.now()
+        self.__paymentDate = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         
     @property
     def customer_name(self):
@@ -31,5 +31,6 @@ class Payment:
 	
 	# set default return value of current class
     def __str__(self) -> str:
-        return f"{self.customer}, {self.payment_amount}, {self.payment_date}"
+        # return f"{self.customer}, {self.payment_amount}, {self.payment_date}"
+        return f"Customer Name: {self.customer}, Payment Amount: {self.payment_amount}, Payment Date: {self.payment_date}"
         

@@ -1,16 +1,17 @@
 from datetime import datetime
 
 class Order:
-    __nextID = 0
+    __counter = 0
 	# start the first customer with ID 1000 and the first order with ID 10000
-    __orderID = 10000
+    __orderBaseID = 10000
     
     def __init__(self, customerName):
         self.__customerName = customerName
 		# Payments and orders should be automatically assigned the current date when the objects are created.
-        self.__orderDate = datetime.now()
-        self.__orderID += Order.__nextID
-        Order.__nextID += 1
+        self.__orderDate = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        self.__orderID = self.__orderBaseID + self.__counter
+        self.__counter += 1
+        self.__nextId = self.__orderBaseID + self.__counter
         self.__status = "uncommit"
         self.__amount = 0
 	
@@ -32,7 +33,7 @@ class Order:
 
     @property
     def next_id(self):
-        return self.__orderID + self.__nextID
+        return self.__nextId
     
     @property
     def status(self):

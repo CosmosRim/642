@@ -42,4 +42,5 @@ class Customer():
         
 	# set default return value of current class
     def __str__(self) -> str:
-        return f"{self.customer_balance}, {self.customer_id}, {self.customer_name}, {self.next_customer_id}"
+        # return f"{self.customer_balance}, {self.customer_id}, {self.customer_name}, {self.next_customer_id}"
+        return f"Customer ID:{self.customer_id}, Customer Name:{self.customer_name}, Balance: ${self.customer_balance}, Next_ID: {self.next_customer_id}"
