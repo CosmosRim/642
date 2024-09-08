@@ -68,6 +68,9 @@ class Controller:
             self.__orders.append(order)
             return True
         return False
+
+    def delete_order(self):
+        self.__orders.pop()
     
     # Add an order item for a given order.
     def add_order_item(self, orderItem):
@@ -140,6 +143,7 @@ class Controller:
         order.amount = amount
         self.update_customer_balance(customer, -amount)
 
+    # load data from files for customer and product
     def load_from_files(self):
         with open("customer.txt", "r") as file:
             for line in file:
@@ -152,6 +156,14 @@ class Controller:
                 name, price = line.strip().split(",")
                 product = Product(name, float(price))
                 self.add_product(product)
+
+    # list all products name
+    def list_all_products_name(self):
+        return list(self.__products.keys())
+
+    # list of all customers name
+    def list_all_customers_name(self):
+        return list(self.__customers.keys())
         
 
 def main():
