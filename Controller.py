@@ -110,6 +110,10 @@ class Controller:
                 payments_for_customer.append(payment)
         return payments_for_customer
 
+    # Provide a list of all products.
+    def list_all_products(self):
+        return list(self.__products.values())
+
     # Provide a list of all customers.
     def list_all_customers(self):
         return list(self.__customers.values())
@@ -136,23 +140,26 @@ class Controller:
         order.amount = amount
         self.update_customer_balance(customer, -amount)
 
+    def load_from_files(self):
+        with open("customer.txt", "r") as file:
+            for line in file:
+                name = line.strip()
+                customer = Customer(0, name)
+                self.add_customer(customer) 
+    
+        with open("product.txt", "r") as file:
+            for line in file:
+                name, price = line.strip().split(",")
+                product = Product(name, float(price))
+                self.add_product(product)
+        
 
 def main():
     # create a instance for all info
     controller = Controller()
     
     # a. Read the supplied files and create the appropriate customer and product objects.
-    with open("customer.txt", "r") as file:
-        for line in file:
-            name = line.strip()
-            customer = Customer(0, name)
-            controller.add_customer(customer) 
-    
-    with open("product.txt", "r") as file:
-        for line in file:
-            name, price = line.strip().split(",")
-            product = Product(name, float(price))
-            controller.add_product(product)
+    controller.load_from_files()
     
     # b. Create a new order for a selected customer.
     order = Order("Ignacia Craft")
@@ -179,17 +186,22 @@ def main():
     for payment in controller.list_payments_for_customer("Ignacia Craft"):
         print(payment)
     
-    print("All customer")
+    print("All products")
+    # Display the list of all products for the company.
+    for product in controller.list_all_products():
+        print(product)
+
+    print("All customers")
     # h. Display the list of all customers for the company.
     for customer in controller.list_all_customers():
         print(customer)
     
-    print("All order")
+    print("All orders")
     # i. Display the list of all the orders for the company.
     for order in controller.list_all_orders():
         print(order)
     
-    print("All payment")
+    print("All payments")
     # j. Display the list of all payments for the company.
     for payment in controller.list_all_payments():
         print(payment)
