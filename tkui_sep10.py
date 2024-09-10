@@ -24,6 +24,7 @@ class App(ctk.CTk):
 		
         # make row 4 extandable, to put row 5 to 7 to buttom
         left_frame.grid_rowconfigure(4, weight=1)
+        left_frame.grid_rowconfigure(6, weight=1)
         
         # left zone buttons
         self.show_payments_btn = ctk.CTkButton(left_frame, text="Show All Prodcutions", command=self.show_all_prod)
@@ -38,17 +39,20 @@ class App(ctk.CTk):
         self.show_orders_btn = ctk.CTkButton(left_frame, text="Show All Orders", command=self.show_all_orders)
         self.show_orders_btn.grid(row=3, column=0, pady=10)
 
+        self.show_orders_btn = ctk.CTkButton(left_frame, text="Clean All Messages", command=self.clean_inputs)
+        self.show_orders_btn.grid(row=5, column=0, pady=10)
+
         # Appearance support change 
         appearance_mode_label = ctk.CTkLabel(left_frame, text="Appearance Mode:")
-        appearance_mode_label.grid(row=5, column=0, padx=20, pady=5, sticky="w")
+        appearance_mode_label.grid(row=7, column=0, padx=20, pady=5, sticky="w")
 
         self.appearance_mode_optionmenu = ctk.CTkOptionMenu(left_frame, values=["Light", "Dark", "System"],
                                                             command=self.change_appearance_mode)
-        self.appearance_mode_optionmenu.grid(row=6, column=0, padx=20, pady=10)
+        self.appearance_mode_optionmenu.grid(row=8, column=0, padx=20, pady=10)
         self.appearance_mode_optionmenu.set("System")  # set default value follow system appearance
 
         self.exit_btn = ctk.CTkButton(left_frame, text="Exit", command=self.quit)
-        self.exit_btn.grid(row=7, column=0, pady=10, sticky="s")
+        self.exit_btn.grid(row=9, column=0, pady=10, sticky="s")
 
         # Middle zone: Display text box, dropdown menu for selecting Customer, input box for payment amount, and submit button
         middle_frame = ctk.CTkFrame(self)
@@ -106,15 +110,10 @@ class App(ctk.CTk):
         self.add_payment = ctk.CTkButton(right_frame, text="Commit Order", command=self.commit_order)
         self.add_payment.grid(row=7, column=0, padx=2, pady=5, sticky="w")
     
-    #Clear Button    
-    app = ctk.CTk()
-    app.title("Clear")
-    entry_field = ctk.CTkEntry(master=app)
-    entry_field.pack(pady=10)
-    def clear_inputs():
-        entry_field.delete(0, ctk.END)# Clear other widgets if needed
-        clear_button = ctk.CTkButton(master=app, text="Clear", command=clear_inputs)
-        clear_button.pack(pady=10)
+    #Clear Button function
+    def clean_inputs(self):
+        self.textbox.delete("1.0", "end") # clean all message before insert
+        self.textbox.insert("end", "All message are cleanned\n")
 
     # function for button command
     def show_all_prod(self):
@@ -198,8 +197,11 @@ class App(ctk.CTk):
         else:
             return False
 
+    # quantity only allow input intger larger than 0
     def validate_input_number(self, new_value):
-        if new_value == "" or new_value.isdigit():
+        if new_value == "":
+            return True
+        elif new_value.isdigit() and int(new_value) > 0:
             return True
         else:
             return False
@@ -217,6 +219,7 @@ class App(ctk.CTk):
         controller.add_order(order)
         self.textbox.insert("end", f"\nAdding order\n{order}")
 	
+	# cancel current order meet some issue, comment now. But fn will remaining, in case void fn calling in other place.
     def on_switch_off(self):
         # cust_name = self.customer_combobox.get()
         # self.on_customer_selected(cust_name)
